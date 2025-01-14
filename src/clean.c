@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 15:22:53 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/14 18:10:41 by meferraz         ###   ########.fr       */
+/*   Created: 2025/01/07 16:08:31 by meferraz          #+#    #+#             */
+/*   Updated: 2025/01/14 18:07:02 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	main(int argc, char **argv)
+void	ft_cleanup(t_data *data)
 {
-	t_data	data;
+	int	i;
 
-	printf("Program started\n");
-	if (ft_is_valid_input(argv, argc) == ERROR)
-		return (1);
-	if (ft_init_data(&data, argv) == ERROR)
-		return (1);
-	ft_start_simulation(&data);
-	ft_free_data(&data);
-	printf("Program ended\n");
-	return (0);
+	i = 0;
+	while (i < data->nb_of_philos)
+	{
+		pthread_mutex_destroy(&data->forks[i].fork);
+		i++;
+	}
+	free(data->philos);
+	free(data->forks);
+	pthread_mutex_destroy(&data->print_lock);
+	pthread_mutex_destroy(&data->check_death_lock);
+	pthread_mutex_destroy(&data->meal_lock);
+	pthread_mutex_destroy(&data->dead_lock);
 }
