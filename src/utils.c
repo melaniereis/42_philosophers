@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/14 21:42:21 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:48:41 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ long	ft_atol(const char *nptr)
 	return (result);
 }
 
-void	ft_print_philo_status(t_philo *philo, const char *status, const char *color)
+void ft_print_philo_status(t_philo *philo, const char *status, const char *color)
 {
-	long	timestamp;
-
-	pthread_mutex_lock(&philo->data->print_lock);
-	if (!ft_is_simulation_over(philo->data))
-	{
-		timestamp = (ft_gettime() - philo->data->start_time) / 1000;
-		printf("%s%ld %d %s%s\n", color, timestamp, philo->index + 1, status, END_COLOR);
-	}
-	pthread_mutex_unlock(&philo->data->print_lock);
+    long timestamp;
+    
+    pthread_mutex_lock(&philo->data->print_lock);
+    if (!ft_is_simulation_over(philo->data)) 
+    {
+        timestamp = ft_gettime() - philo->data->start_time;
+        printf("%s%ld %d %s%s\n", color, timestamp, philo->index + 1, status, END_COLOR);
+    }
+    pthread_mutex_unlock(&philo->data->print_lock);
 }

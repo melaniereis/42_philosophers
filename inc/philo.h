@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:21:06 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/14 21:50:11 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:49:44 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,15 @@ typedef struct s_fork
 
 typedef struct s_philo
 {
-	int				index;
-	int				meals_eaten;
-	long			last_meal_time;
-	t_fork			*right_fork;
-	t_fork			*left_fork;
-	pthread_t		thread;
-	int				is_eating;
-	t_philo_state	state;
-	struct s_data	*data;
-}	t_philo;
+    int             index;
+    int             meals_eaten;
+    long            last_meal_time;
+    t_fork          *right_fork;
+    t_fork          *left_fork;
+    pthread_t       thread;
+    struct s_data   *data;
+    pthread_mutex_t time_mutex;
+} t_philo;
 
 typedef struct s_data
 {
@@ -92,13 +91,14 @@ t_status	ft_philo_think(t_philo *philo);
 t_status	ft_take_forks(t_philo *philo);
 void		ft_release_forks(t_philo *philo);
 void		ft_set_last_meal_time(t_philo *philo);
+int	ft_all_ate_enough(t_data *data);;
 
 // monitor.c
 void		*ft_monitor_routine(void *arg);
 int			ft_check_philosopher_death(t_data *data, int i);
-int			ft_check_meals_eaten(t_data *data);
 int			ft_is_simulation_over(t_data *data);
 void		ft_set_dead_lock(t_data *data);
+int ft_should_terminate(t_data *data);
 
 // utils.c
 long		ft_atol(const char *nptr);
@@ -111,7 +111,6 @@ void		ft_usleep(long time_in_us);
 
 // cleanup.c
 void		ft_cleanup(t_data *data);
-void		ft_free_data(t_data *data);
 
 // start.c
 void		ft_start_simulation(t_data *data);
