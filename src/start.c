@@ -6,29 +6,35 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/18 09:35:11 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/18 09:51:16 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-static void	*ft_philo_routine(void *arg)
+static void *ft_philo_routine(void *arg)
 {
-	t_philo	*philo;
+    t_philo *philo;
+    int     meals_eaten;
 
-	philo = (t_philo *)arg;
-	if (philo->id % 2 == 0)
-		usleep(1000);
-	while (!ft_is_simulation_over(philo->data))
-	{
-		if (ft_philo_eat(philo) != SUCCESS)
-			break ;
-		if (ft_philo_sleep(philo) != SUCCESS)
-			break ;
-		if (ft_philo_think(philo) != SUCCESS)
-			break ;
-	}
-	return (NULL);
+    philo = (t_philo *)arg;
+    if (philo->id % 2 == 0)
+        usleep(1000);
+    while (!ft_is_simulation_over(philo->data))
+    {
+        if (ft_philo_eat(philo) != SUCCESS)
+            break;
+        pthread_mutex_lock(&philo->meal_mutex);
+        meals_eaten = philo->meals_eaten;
+        pthread_mutex_unlock(&philo->meal_mutex);
+        if (philo->data->max_nb_of_meals > 0 && meals_eaten >= philo->data->max_nb_of_meals)
+            break;
+        if (ft_philo_sleep(philo) != SUCCESS)
+            break;
+        if (ft_philo_think(philo) != SUCCESS)
+            break;
+    }
+    return (NULL);
 }
 
 static int	ft_create_threads(t_data *data)

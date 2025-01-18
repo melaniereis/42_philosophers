@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/18 09:29:07 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/18 09:50:56 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,48 @@ void	ft_set_dead_flag(t_data *data)
 	pthread_mutex_unlock(&data->dead_mutex);
 }
 
-void	*ft_monitor_routine(void *arg)
+int ft_all_ate_enough(t_data *data)
 {
-	t_data	*data;
-	int		i;
+    int i;
 
-	data = (t_data *)arg;
-	while (!ft_is_simulation_over(data))
-	{
-		i = 0;
-		while (i < data->nb_of_philos)
-		{
-			if (ft_check_death(data, i))
-				return (NULL);
-			i++;
-		}
-		usleep(1000);
-	}
-	return (NULL);
+    if (data->max_nb_of_meals < 0)
+        return (0);
+    i = 0;
+    while (i < data->nb_of_philos)
+    {
+        pthread_mutex_lock(&data->philos[i].meal_mutex);
+        if (data->philos[i].meals_eaten < data->max_nb_of_meals)
+        {
+            pthread_mutex_unlock(&data->philos[i].meal_mutex);
+            return (0);
+        }
+        pthread_mutex_unlock(&data->philos[i].meal_mutex);
+        i++;
+    }
+    return (1);
+}
+
+void *ft_monitor_routine(void *arg)
+{
+    t_data *data;
+    int     i;
+
+    data = (t_data *)arg;
+    while (!ft_is_simulation_over(data))
+    {
+        i = 0;
+        while (i < data->nb_of_philos)
+        {
+            if (ft_check_death(data, i))
+                return (NULL);
+            i++;
+        }
+        if (ft_all_ate_enough(data))
+        {
+            ft_set_dead_flag(data);
+            return (NULL);
+        }
+        usleep(1000);
+    }
+    return (NULL);
 }
