@@ -6,25 +6,55 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/18 09:29:46 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/18 12:18:37 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	ft_take_forks(t_philo *philo)
+#define MAX_RETRIES 5
+#define FORK_TIMEOUT 10000  // Timeout in microseconds (10ms)
+
+int ft_take_forks(t_philo *philo)
 {
-	if (pthread_mutex_lock(&philo->right_fork->mutex) != 0)
-		return (ERROR);
-	ft_print_status(philo, "has taken a fork");
-	if (pthread_mutex_lock(&philo->left_fork->mutex) != 0)
-	{
-		pthread_mutex_unlock(&philo->right_fork->mutex);
-		return (ERROR);
-	}
-	ft_print_status(philo, "has taken a fork");
-	return (SUCCESS);
+    int retries = 0;
+
+    while (retries < MAX_RETRIES)
+    {
+        if (philo->id % 2 == 0)  // Even philosopher: Left fork first
+        {
+            if (pthread_mutex_lock(&philo->left_fork->mutex) != 0)
+                return (ERROR);
+            ft_print_status(philo, "has taken a fork");
+            if (pthread_mutex_lock(&philo->right_fork->mutex) != 0)
+            {
+                pthread_mutex_unlock(&philo->left_fork->mutex);
+                return (ERROR);
+            }
+            ft_print_status(philo, "has taken a fork");
+        }
+        else  // Odd philosopher: Right fork first
+        {
+            if (pthread_mutex_lock(&philo->right_fork->mutex) != 0)
+                return (ERROR);
+            ft_print_status(philo, "has taken a fork");
+            if (pthread_mutex_lock(&philo->left_fork->mutex) != 0)
+            {
+                pthread_mutex_unlock(&philo->right_fork->mutex);
+                return (ERROR);
+            }
+            ft_print_status(philo, "has taken a fork");
+        }
+        return SUCCESS;  // Success: both forks acquired
+
+        // Retry logic
+        usleep(FORK_TIMEOUT);  // Retry after a short timeout
+        retries++;
+    }
+
+    return ERROR;  // Return error if retries exceeded
 }
+
 
 void	ft_release_forks(t_philo *philo)
 {
@@ -49,12 +79,12 @@ int	ft_philo_eat(t_philo *philo)
 int	ft_philo_sleep(t_philo *philo)
 {
 	ft_print_status(philo, "is sleeping");
-	ft_precise_sleep(philo->data->time_to_sleep);
+	ft_precise_sleep(philo->data->time_to_sleep); // Simulate sleeping time
 	return (SUCCESS);
 }
 
 int	ft_philo_think(t_philo *philo)
 {
 	ft_print_status(philo, "is thinking");
-	return (SUCCESS);
+	return (SUCCESS); // No specific actions needed for thinking
 }

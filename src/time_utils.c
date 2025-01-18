@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/18 09:28:01 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:50:04 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ long long	ft_get_time(void)
 
 void	ft_precise_sleep(long long time_in_ms)
 {
-	long long	start;
-	long long	elapsed;
+	long long	start_time;
+	long long	elapsed_time;
 
-	start = ft_get_time();
-	while (1)
+	start_time = ft_get_time();
+	elapsed_time = 0;
+
+	// Sleep in smaller intervals (e.g., 100 microseconds) to improve precision
+	while (elapsed_time < time_in_ms)
 	{
-		elapsed = ft_get_time() - start;
-		if (elapsed >= time_in_ms)
-			break ;
-		usleep(500);
+		usleep(100); // Sleep for 100 microseconds
+		elapsed_time = ft_get_time() - start_time;
 	}
 }

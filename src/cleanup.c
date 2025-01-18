@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/18 09:27:19 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:46:14 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ static void	ft_destroy_mutexes(t_data *data)
 	pthread_mutex_destroy(&data->meal_mutex);
 }
 
-void	ft_cleanup(t_data *data)
+void ft_cleanup(t_data *data)
 {
-	ft_destroy_mutexes(data);
-	free(data->forks);
-	free(data->philos);
+    if (data->forks)
+        free(data->forks);
+    if (data->philos)
+        free(data->philos);
+    ft_destroy_mutexes(data);
 }
-

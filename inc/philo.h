@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:21:06 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/18 09:35:36 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:10:40 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_data
 	pthread_mutex_t	dead_mutex;
 	volatile int	dead_flag;
 	pthread_mutex_t	meal_mutex;
-    pthread_t		monitor;
+	pthread_t		monitor;
 }	t_data;
 
 int			ft_init_data(t_data *data, int argc, char **argv);
@@ -75,7 +75,6 @@ int			ft_philo_eat(t_philo *philo);
 int			ft_philo_sleep(t_philo *philo);
 int			ft_philo_think(t_philo *philo);
 void		*ft_monitor_routine(void *arg);
-int			ft_check_death(t_data *data, int i);
 int			ft_is_simulation_over(t_data *data);
 void		ft_set_dead_flag(t_data *data);
 long long	ft_get_time(void);
