@@ -6,40 +6,32 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/17 16:48:55 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/18 09:27:19 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	ft_cleanup(t_data *data)
+static void	ft_destroy_mutexes(t_data *data)
 {
 	int	i;
 
-	if (!data)
-		return ;
-    if (data->forks)
-    {
-        i = 0;
-        while (i < data->nb_of_philos)
-        {
-            pthread_mutex_destroy(&data->forks[i].fork);
-            i++;
-        }
-        free(data->forks);
-    }
-    if (data->philos)
-    {
-        i = 0;
-        while (i < data->nb_of_philos)
-        {
-            pthread_mutex_destroy(&data->philos[i].time_mutex);
-            i++;
-        }
-        free(data->philos);
-    }
-	pthread_mutex_destroy(&data->print_lock);
-	pthread_mutex_destroy(&data->check_death_lock);
-	pthread_mutex_destroy(&data->meal_lock);
-	pthread_mutex_destroy(&data->dead_lock);
+	i = 0;
+	while (i < data->nb_of_philos)
+	{
+		pthread_mutex_destroy(&data->forks[i].mutex);
+		pthread_mutex_destroy(&data->philos[i].meal_mutex);
+		i++;
+	}
+	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->dead_mutex);
+	pthread_mutex_destroy(&data->meal_mutex);
 }
+
+void	ft_cleanup(t_data *data)
+{
+	ft_destroy_mutexes(data);
+	free(data->forks);
+	free(data->philos);
+}
+
