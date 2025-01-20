@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/18 12:18:37 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/20 22:07:23 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ int ft_take_forks(t_philo *philo)
 {
     int retries = 0;
 
+     if (philo->data->nb_of_philos == 1)
+    {
+        if (pthread_mutex_lock(&philo->left_fork->mutex) != 0)
+            return (ERROR);
+        ft_print_status(philo, "has taken a fork");
+        ft_precise_sleep(philo->data->time_to_die);
+        pthread_mutex_unlock(&philo->left_fork->mutex);
+        return (ERROR);
+    }
     while (retries < MAX_RETRIES)
     {
         if (philo->id % 2 == 0)  // Even philosopher: Left fork first
