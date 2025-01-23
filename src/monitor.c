@@ -6,14 +6,14 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/23 15:51:31 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:24:24 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-static int		ft_check_death(t_data *data, int i);
-static int		ft_all_ate_enough(t_data *data);
+static int	ft_check_death(t_data *data, int i);
+static int	ft_all_ate_enough(t_data *data);
 
 /**
  * @brief The routine for the monitor thread.
@@ -22,7 +22,7 @@ static int		ft_all_ate_enough(t_data *data);
  * @param arg The data structure containing the information of the philosophers.
  * @return NULL if the simulation is over.
  */
-void		*ft_monitor_routine(void *arg)
+void	*ft_monitor_routine(void *arg)
 {
 	t_data	*data;
 	int		i;
@@ -39,7 +39,7 @@ void		*ft_monitor_routine(void *arg)
 		}
 		if (ft_all_ate_enough(data))
 			ft_set_dead_flag(data);
-		usleep(1000);
+		usleep(5000);
 	}
 	return (NULL);
 }
@@ -51,15 +51,16 @@ void		*ft_monitor_routine(void *arg)
  * @param data The data structure containing the simulation state.
  * @return 1 if the simulation is over, 0 otherwise.
  */
-int		ft_is_simulation_over(t_data *data)
+int	ft_is_simulation_over(t_data *data)
 {
 	int	result;
-	int	i;
+    int	i;
 	int	all_ate_enough;
 
 	pthread_mutex_lock(&data->dead_mutex);
 	result = data->dead_flag;
 	pthread_mutex_unlock(&data->dead_mutex);
+
 	if (data->max_nb_of_meals >= 0)
 	{
 		all_ate_enough = 1;
@@ -85,7 +86,7 @@ int		ft_is_simulation_over(t_data *data)
  * @param i The index of the philosopher to check.
  * @return 1 if the philosopher should die, 0 otherwise.
  */
-static int		ft_check_death(t_data *data, int i)
+static int	ft_check_death(t_data *data, int i)
 {
 	long long	current_time;
 	int			should_die;
@@ -109,7 +110,7 @@ static int		ft_check_death(t_data *data, int i)
  * @brief Set the dead flag.
  * @param data The data structure containing the dead flag.
  */
-void		ft_set_dead_flag(t_data *data)
+void	ft_set_dead_flag(t_data *data)
 {
 	pthread_mutex_lock(&data->dead_mutex);
 	data->dead_flag = 1;
@@ -121,14 +122,14 @@ void		ft_set_dead_flag(t_data *data)
  * @param data The data structure containing the information of the philosophers.
  * @return 1 if all philosophers have eaten enough, 0 otherwise.
  */
-static int		ft_all_ate_enough(t_data *data)
+static int	ft_all_ate_enough(t_data *data)
 {
 	int	i;
-    
-    if (data->max_nb_of_meals < 0)
+
+	if (data->max_nb_of_meals < 0)
 		return (0);
 	i = 0;
-    while (i < data->nb_of_philos)
+	while (i < data->nb_of_philos)
 	{
 		pthread_mutex_lock(&data->philos[i].meal_mutex);
 		if (data->philos[i].meals_eaten < data->max_nb_of_meals)

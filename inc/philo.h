@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:21:06 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/23 15:52:14 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:01:27 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ typedef struct s_data
 	pthread_t		monitor;
 }	t_data;
 
-// Function prototypes
 int			ft_init_data(t_data *data, int argc, char **argv);
 int			ft_take_forks(t_philo *philo);
 void		ft_release_forks(t_philo *philo);

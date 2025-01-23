@@ -6,12 +6,18 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/23 15:56:35 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:59:18 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
+/**
+ * @brief Clean up the data structure.
+ * It destroys all mutexes and frees the memory allocated for the forks and
+ * philos arrays.
+ * @param data The data structure to be cleaned up.
+ */
 void 	ft_cleanup(t_data *data)
 {
 	int	i;

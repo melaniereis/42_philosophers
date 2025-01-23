@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/23 15:47:38 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:56:13 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ long long	ft_get_time(void)
 {
 	struct timeval	tv;
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	if (gettimeofday(&tv, NULL) == -1)
+		return (-1);
+	return ((tv.tv_sec * 1000LL) + (tv.tv_usec / 1000LL));
 }
 
 /**
@@ -41,7 +42,7 @@ void	ft_precise_sleep(long long time_in_ms)
 	elapsed_time = 0;
 	while (elapsed_time < time_in_ms)
 	{
-		usleep(100);
+		usleep(500);
 		elapsed_time = ft_get_time() - start_time;
 	}
 }

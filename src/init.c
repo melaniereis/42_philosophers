@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 16:37:34 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/22 15:50:20 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:08:25 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		ft_init_data(t_data *data, int argc, char **argv)
 		return (ERROR);
 	if (ft_init_mutexes(data) != SUCCESS || ft_init_philos(data) != SUCCESS)
 		return (ERROR);
+	data->start_time = ft_get_time();
 	return (SUCCESS);
 }
 
@@ -113,6 +114,5 @@ static int		ft_init_data_values(t_data *data, int argc, char **argv)
 	else
 		data->max_nb_of_meals = -1;
 	data->dead_flag = 0;
-	data->start_time = ft_get_time();
 	return (SUCCESS);
 }

@@ -6,12 +6,20 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/23 15:50:19 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:53:10 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
+/**
+ * @brief Checks if the input is valid.
+ * It checks if the number of arguments is valid, and if all the arguments
+ * are valid numbers.
+ * @param argv The array of strings passed as arguments.
+ * @param argc The number of arguments passed to the program.
+ * @return SUCCESS if the input is valid, ERROR otherwise.
+ */
 t_status	ft_is_valid_input(char **argv, int argc)
 {
 	if (argc < 5 || argc > 6)

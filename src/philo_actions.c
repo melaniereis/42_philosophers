@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/22 16:21:50 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:10:31 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ int	ft_philo_eat(t_philo *philo)
 	if (ft_take_forks(philo) != SUCCESS)
 		return (ERROR);
 	ft_print_status(philo, "is eating");
-	pthread_mutex_lock(&philo->meal_mutex);
+	if (pthread_mutex_lock(&philo->meal_mutex) != 0)
+		return (ERROR);
 	philo->last_meal_time = ft_get_time();
 	philo->meals_eaten++;
-	pthread_mutex_unlock(&philo->meal_mutex);
+	if (pthread_mutex_unlock(&philo->meal_mutex) != 0)
+		return (ERROR);
 	ft_precise_sleep(philo->data->time_to_eat);
 	ft_release_forks(philo);
 	return (SUCCESS);
@@ -53,12 +55,13 @@ int	ft_philo_sleep(t_philo *philo)
 /**
  * @brief Attempt to think for the philosopher.
  * It prints a message indicating that the philosopher is thinking and returns
- * success.
+ * success. A small delay is added to prevent busy-waiting.
  * @param philo The philosopher attempting to think.
  * @return SUCCESS if the philosopher has thought, ERROR otherwise.
  */
 int	ft_philo_think(t_philo *philo)
 {
 	ft_print_status(philo, "is thinking");
+	usleep(100);
 	return (SUCCESS);
 }
