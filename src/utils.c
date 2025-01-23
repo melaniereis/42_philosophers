@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/18 09:28:22 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:50:19 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,30 @@ t_status	ft_is_valid_input(char **argv, int argc)
 		return (ERROR);
 	if (argc == 6 && ft_atol(argv[5]) <= 0)
 		return (ERROR);
+	if (ft_atol(argv[1]) > INT_MAX || ft_atol(argv[2]) > INT_MAX
+		|| ft_atol(argv[3]) > INT_MAX || ft_atol(argv[4]) > INT_MAX)
+		return (ERROR);
 	return (SUCCESS);
 }
 
+/**
+ * @brief Convert a string to a long integer.
+ * This function takes a string and returns a long integer equivalent.
+ * It ignores any leading whitespace and optional sign, and then reads
+ * the number until it encounters a non-numeric character.
+ * If the number is larger than INT_MAX, it returns 0.
+ * @param nptr The string to be converted.
+ * @return The long integer equivalent of the string.
+ */
 long	ft_atol(const char *nptr)
 {
 	long	result;
 
-	result = 0;
 	while (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13))
 		nptr++;
 	if (*nptr == '+')
 		nptr++;
+	result = 0;
 	while (*nptr >= '0' && *nptr <= '9')
 	{
 		result = result * 10 + *nptr - '0';
@@ -43,6 +55,13 @@ long	ft_atol(const char *nptr)
 	return (result);
 }
 
+/**
+ * @brief Prints the status of a philosopher.
+ * Prints the timestamp, philosopher ID, and status of the philosopher.
+ * If the simulation is over, does nothing.
+ * @param philo The philosopher whose status is being printed.
+ * @param status The status of the philosopher (e.g. "is eating", "is sleeping", etc.).
+ */
 void	ft_print_status(t_philo *philo, const char *status)
 {
 	long long	timestamp;
@@ -68,6 +87,18 @@ void	ft_print_status(t_philo *philo, const char *status)
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
+/**
+ * @brief Compares two strings.
+ * Compares the first n characters of two strings.
+ * If the strings are equal, returns 0.
+ * If the first string is lexicographically less than the second, returns a negative value.
+ * If the first string is lexicographically greater than the second, returns a positive value.
+ * @param s1 The first string to compare.
+ * @param s2 The second string to compare.
+ * @param n The number of characters to compare.
+ * @return 0 if the strings are equal, a negative value if s1 is lexicographically less than s2,
+ * a positive value if s1 is lexicographically greater than s2.
+ */
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;

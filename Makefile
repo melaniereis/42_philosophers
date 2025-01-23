@@ -6,7 +6,7 @@
 #    By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/09 16:57:53 by meferraz          #+#    #+#              #
-#    Updated: 2025/01/14 21:33:18 by meferraz         ###   ########.fr        #
+#    Updated: 2025/01/23 14:49:53 by meferraz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRCS = ${addprefix ${SRC_PATH}/, \
 	init.c \
 	monitor.c \
 	philo_actions.c \
+	philo_forks.c \
 	start.c \
 	time_utils.c \
 	utils.c}
