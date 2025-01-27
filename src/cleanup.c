@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/23 15:59:18 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:42:31 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * philos arrays.
  * @param data The data structure to be cleaned up.
  */
-void 	ft_cleanup(t_data *data)
+void	ft_cleanup(t_data *data)
 {
 	int	i;
 

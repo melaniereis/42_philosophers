@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:23:54 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/23 17:08:07 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:43:25 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int		ft_handle_single_philo(t_philo *philo);
  * @param philo The philosopher attempting to take the forks.
  * @return SUCCESS if forks are acquired, ERROR otherwise.
  */
-int		ft_take_forks(t_philo *philo)
+int	ft_take_forks(t_philo *philo)
 {
 	int	retries;
 
@@ -46,7 +46,7 @@ int		ft_take_forks(t_philo *philo)
  * @param philo The single philosopher.
  * @return ERROR as the philosopher can't eat with one fork.
  */
-static int		ft_handle_single_philo(t_philo *philo)
+static int	ft_handle_single_philo(t_philo *philo)
 {
 	if (pthread_mutex_lock(&philo->left_fork->mutex) != 0)
 		return (ERROR);
@@ -59,12 +59,13 @@ static int		ft_handle_single_philo(t_philo *philo)
 
 /**
  * @brief Attempt to take forks for an even ID philosopher.
- * Locks the left fork first, then the right fork. If locking the right fork fails,
+ * Locks the left fork first, then the right fork. 
+ * If locking the right fork fails,
  * the left fork is unlocked and an error is returned.
  * @param philo The philosopher attempting to take the forks.
  * @return SUCCESS if both forks are acquired, ERROR otherwise.
  */
-static int		ft_take_forks_even(t_philo *philo)
+static int	ft_take_forks_even(t_philo *philo)
 {
 	if (pthread_mutex_lock(&philo->left_fork->mutex) != 0)
 		return (ERROR);
@@ -80,12 +81,13 @@ static int		ft_take_forks_even(t_philo *philo)
 
 /**
  * @brief Attempt to take forks for an odd ID philosopher.
- * Locks the right fork first, then the left fork. If locking the left fork fails,
+ * Locks the right fork first, then the left fork. 
+ * If locking the left fork fails,
  * the right fork is unlocked and an error is returned.
  * @param philo The philosopher attempting to take the forks.
  * @return SUCCESS if both forks are acquired, ERROR otherwise.
  */
-static int		ft_take_forks_odd(t_philo *philo)
+static int	ft_take_forks_odd(t_philo *philo)
 {
 	if (pthread_mutex_lock(&philo->right_fork->mutex) != 0)
 		return (ERROR);
@@ -104,7 +106,7 @@ static int		ft_take_forks_odd(t_philo *philo)
  * Unlocks the left and right forks that the philosopher is holding.
  * @param philo The philosopher releasing the forks.
  */
-void		ft_release_forks(t_philo *philo)
+void	ft_release_forks(t_philo *philo)
 {
 	if (pthread_mutex_unlock(&philo->left_fork->mutex) != 0
 		|| pthread_mutex_unlock(&philo->right_fork->mutex) != 0)

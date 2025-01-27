@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/23 16:24:24 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:39:51 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,12 @@ void	*ft_monitor_routine(void *arg)
 int	ft_is_simulation_over(t_data *data)
 {
 	int	result;
-    int	i;
+	int	i;
 	int	all_ate_enough;
 
 	pthread_mutex_lock(&data->dead_mutex);
 	result = data->dead_flag;
 	pthread_mutex_unlock(&data->dead_mutex);
-
 	if (data->max_nb_of_meals >= 0)
 	{
 		all_ate_enough = 1;

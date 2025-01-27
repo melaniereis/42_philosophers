@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:22:53 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/22 15:45:30 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:42:12 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param argv The array of arguments passed to the program.
  * @return 0 if the program runs successfully, 1 otherwise.
  */
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data	data;
 

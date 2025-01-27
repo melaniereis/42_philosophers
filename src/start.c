@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/23 17:00:37 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:45:01 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int		ft_join_threads(t_data *data);
  * @param data The data structure containing the information of the philosophers.
  * @return 0 if the simulation runs successfully, 1 otherwise.
  */
-int		ft_start_simulation(t_data *data)
+int	ft_start_simulation(t_data *data)
 {
 	if (ft_create_threads(data) != SUCCESS)
 	{
@@ -45,7 +45,7 @@ int		ft_start_simulation(t_data *data)
  * @param data The data structure containing the information of the philosophers.
  * @return 0 if the threads are created successfully, 1 otherwise.
  */
-static int		ft_create_threads(t_data *data)
+static int	ft_create_threads(t_data *data)
 {
 	int	i;
 
@@ -69,7 +69,7 @@ static int		ft_create_threads(t_data *data)
  * @param arg The philosopher structure passed as an argument.
  * @return NULL when the routine ends.
  */
-static void		*ft_philo_routine(void *arg)
+static void	*ft_philo_routine(void *arg)
 {
 	t_philo	*philo;
 
@@ -78,11 +78,14 @@ static void		*ft_philo_routine(void *arg)
 		usleep(1000);
 	while (!ft_is_simulation_over(philo->data))
 	{
-		if (ft_philo_eat(philo) != SUCCESS || ft_is_simulation_over(philo->data))
+		if (ft_philo_eat(philo) != SUCCESS
+			|| ft_is_simulation_over(philo->data))
 			break ;
-		if (ft_philo_sleep(philo) != SUCCESS || ft_is_simulation_over(philo->data))
+		if (ft_philo_sleep(philo) != SUCCESS
+			|| ft_is_simulation_over(philo->data))
 			break ;
-		if (ft_philo_think(philo) != SUCCESS || ft_is_simulation_over(philo->data))
+		if (ft_philo_think(philo) != SUCCESS
+			|| ft_is_simulation_over(philo->data))
 			break ;
 	}
 	return (NULL);
@@ -93,7 +96,7 @@ static void		*ft_philo_routine(void *arg)
  * @param data The data structure containing the information of the philosophers.
  * @return 0 if all threads are joined successfully, 1 otherwise.
  */
-static int		ft_join_threads(t_data *data)
+static int	ft_join_threads(t_data *data)
 {
 	int	i;
 

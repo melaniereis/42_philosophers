@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 16:08:31 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/23 16:53:10 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:41:51 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ long	ft_atol(const char *nptr)
  * Prints the timestamp, philosopher ID, and status of the philosopher.
  * If the simulation is over, does nothing.
  * @param philo The philosopher whose status is being printed.
- * @param status The status of the philosopher (e.g. "is eating", "is sleeping", etc.).
+ * @param status The status of the philosopher 
+ * (e.g. "is eating", "is sleeping", etc.).
  */
 void	ft_print_status(t_philo *philo, const char *status)
 {
@@ -99,13 +100,17 @@ void	ft_print_status(t_philo *philo, const char *status)
  * @brief Compares two strings.
  * Compares the first n characters of two strings.
  * If the strings are equal, returns 0.
- * If the first string is lexicographically less than the second, returns a negative value.
- * If the first string is lexicographically greater than the second, returns a positive value.
+ * If the first string is lexicographically less 
+ * than the second, returns a negative value.
+ * If the first string is lexicographically greater 
+ * than the second, returns a positive value.
  * @param s1 The first string to compare.
  * @param s2 The second string to compare.
  * @param n The number of characters to compare.
- * @return 0 if the strings are equal, a negative value if s1 is lexicographically less than s2,
- * a positive value if s1 is lexicographically greater than s2.
+ * @return 0 if the strings are equal, a negative 
+ * value if s1 is lexicographically less than s2,
+ * a positive value if s1 is lexicographically greater 
+ * than s2.
  */
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

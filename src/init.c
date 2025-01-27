@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 16:37:34 by meferraz          #+#    #+#             */
-/*   Updated: 2025/01/23 16:08:25 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:40:57 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int		ft_init_data_values(t_data *data, int argc, char **argv);
  * @param argv The array of arguments passed to the program.
  * @return 0 if the initialization is successful, 1 otherwise.
  */
-int		ft_init_data(t_data *data, int argc, char **argv)
+int	ft_init_data(t_data *data, int argc, char **argv)
 {
 	if (ft_init_data_values(data, argc, argv) != SUCCESS)
 		return (ERROR);
@@ -46,7 +46,7 @@ int		ft_init_data(t_data *data, int argc, char **argv)
  * @param data The data structure to be initialized.
  * @return 0 if the initialization is successful, 1 otherwise.
  */
-static int		ft_init_mutexes(t_data *data)
+static int	ft_init_mutexes(t_data *data)
 {
 	int	i;
 
@@ -75,7 +75,7 @@ static int		ft_init_mutexes(t_data *data)
  * @param data The data structure to be initialized.
  * @return 0 if the initialization is successful, 1 otherwise.
  */
-static int		ft_init_philos(t_data *data)
+static int	ft_init_philos(t_data *data)
 {
 	int	i;
 
@@ -103,7 +103,7 @@ static int		ft_init_philos(t_data *data)
  * @param argv The array of arguments passed to the program.
  * @return 0 if the initialization is successful, 1 otherwise.
  */
-static int		ft_init_data_values(t_data *data, int argc, char **argv)
+static int	ft_init_data_values(t_data *data, int argc, char **argv)
 {
 	data->nb_of_philos = (int)ft_atol(argv[1]);
 	data->time_to_die = (int)ft_atol(argv[2]);
