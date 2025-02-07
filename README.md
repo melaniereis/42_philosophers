@@ -2,6 +2,20 @@
 
 <div align="center">
 
+![Funny Sorting GIF](https://media.tenor.com/yF3Zothe3f8AAAAM/food-fight-food-war.gif)
+
+# Welcome to **Philosophers**! 
+
+This project is my implementation of the **Dining Philosophers Problem**, which is part of the **42 coding school** curriculum. The goal of this project is to simulate philosophers sitting at a table with forks, alternating between eating, thinking, and sleeping. The challenge is to implement a **deadlock-free** solution to manage the philosophers' actions, ensuring they don't starve or block each other.
+
+The algorithm utilizes **mutexes** and **thread synchronization** to manage fork usage efficiently. This solution ensures philosophers can eat and sleep without encountering deadlocks or starvation, and each philosopher gets their fair share of the forks to eat.
+
+Key aspects of this implementation include:
+- **Deadlock-free** fork management
+- **Efficient thread synchronization** using **mutexes**
+- **Edge case handling**, including a single philosopher scenario
+- **Customizable simulation parameters** (time to eat, time to sleep, etc.)
+
 ![Philosophers](https://img.shields.io/badge/Project-Philosophers-blue?style=for-the-badge&logo=42)
 ![Language](https://img.shields.io/badge/Language-C-orange?style=for-the-badge&logo=c)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
