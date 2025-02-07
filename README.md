@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Funny Fighting GIF](https://media.tenor.com/yF3Zothe3f8AAAAM/food-fight-food-war.gif)
+![Funny Fighting GIF](https://media1.tenor.com/m/yF3Zothe3f8AAAAC/food-fight-food-war.gif)
 
 # Welcome to **Philosophers**! 
 
