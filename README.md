@@ -111,7 +111,7 @@ Before running the project, make sure you have the following installed:
 1. Clone the repository:
 
  ```bash
-   git clone https://github.com/yourusername/philosophers.git
+   git clone https://github.com/melaniereis/42_philosophers.git
 ```
 2. Navigate to the project directory and run:
 
